@@ -1,0 +1,8 @@
+npm init -y
+npm install express mongoose bcryptjs jsonwebtoken socket.io
+-----
+Express: For creating the server and APIs.
+Mongoose: For interacting with MongoDB.
+bcryptjs: For password hashing.
+jsonwebtoken: For user authentication.
+Socket.io: For real-time leaderboard updates.

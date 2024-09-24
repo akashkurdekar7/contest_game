@@ -1,0 +1,125 @@
+Sure! Here’s a documentation overview of your Node.js application, including key components and their functionalities:
+
+## Overview
+
+This application is a gaming platform that allows users to register, log in, play games, and submit their scores. It utilizes MongoDB for data storage, Mongoose for data modeling, Express for handling HTTP requests, and Socket.io for real-time communication.
+
+---
+
+## Table of Contents
+
+1. [Technologies Used](#technologies-used)
+2. [Database Models](#database-models)
+   - [User Model](#user-model)
+   - [Game Model](#game-model)
+3. [API Routes](#api-routes)
+   - [User Routes](#user-routes)
+   - [Game Routes](#game-routes)
+4. [Socket.io Integration](#socketio-integration)
+5. [Environment Configuration](#environment-configuration)
+6. [Usage](#usage)
+
+---
+
+### Technologies Used
+
+- **Node.js**: JavaScript runtime for building server-side applications.
+- **Express**: Web framework for Node.js, designed for building APIs.
+- **Mongoose**: ODM (Object Data Modeling) library for MongoDB and Node.js.
+- **Socket.io**: Library for real-time web applications, enabling bidirectional communication.
+- **JWT (JSON Web Tokens)**: For secure user authentication.
+- **dotenv**: For managing environment variables.
+
+---
+
+### Database Models
+
+#### User Model
+
+- **Schema**:
+  - `name`: String, required, unique.
+  - `slug`: String, auto-generated from the name.
+  - `age`: Number, required.
+  - `gender`: String, required, with values ["male", "female", "others"].
+  - `number`: String, required.
+  - `email`: String, required, unique.
+  - `password`: String, required.
+  - `totalScore`: Number, default is 0.
+  - `totalTime`: Number, default is 0.
+  - `hasEnteredContest`: Boolean, default is false.
+
+- **Methods**:
+  - `pre('save')`: Hashes the password before saving the user and generates a slug if the name is modified.
+  - `comparePassword()`: Compares a provided password with the hashed password.
+
+#### Game Model
+
+- **Schema**:
+  - `userId`: ObjectId, references the User model, required.
+  - `gameNumber`: Number, required.
+  - `score`: Number, default is 0.
+  - `startTime`: Date, when the game starts.
+  - `endTime`: Date, when the game ends.
+
+---
+
+### API Routes
+
+#### User Routes
+
+- **POST /api/users/register**: Registers a new user.
+  - **Request Body**: `{ name, age, gender, number, email, password }`
+  - **Response**: Success or error message.
+
+- **POST /api/users/login**: Authenticates a user and returns a JWT token.
+  - **Request Body**: `{ email, password }`
+  - **Response**: Token and success message.
+
+- **Middleware**: `authMiddleware` checks for JWT token in the header.
+
+#### Game Routes
+
+- **POST /api/game/start**: Starts a new game for a user.
+  - **Middleware**: `checkContestEntry` checks if the user has already entered the contest.
+  - **Request Body**: `{ name, gameNumber }`
+  - **Response**: Success or error message.
+
+- **POST /api/game/submit**: Submits the score of a completed game.
+  - **Request Body**: `{ name, gameNumber, score, endTime }`
+  - **Response**: Success or error message.
+
+---
+
+### Socket.io Integration
+
+- **Connection**: Listens for new connections and logs when a user connects or disconnects.
+- **Leaderboard Updates**: Emits an event (`leaderboardUpdated`) to update the leaderboard in real-time when scores are submitted.
+
+---
+
+### Environment Configuration
+
+- Use a `.env` file to store sensitive information, such as:
+  - `mongoDB`: MongoDB connection URI.
+  - `JWT_SECRET`: Secret key for signing JWT tokens.
+  - `PORT`: Port number for the server (default is 5000).
+
+---
+
+### Usage
+
+1. **Clone the repository**.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Set up your `.env` file** with required environment variables.
+4. **Start the server**:
+   ```bash
+   npm start
+   ```
+5. **Interact with the API** using tools like Postman or directly through a frontend.
+
+---
+
+This documentation should help anyone understand how to use your application and its features. If there are specific sections you’d like to expand on or any additional details you want to include, just let me know!
