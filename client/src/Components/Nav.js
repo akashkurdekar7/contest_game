@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const NavWrapper = styled.nav`
@@ -15,34 +14,57 @@ const NavWrapper = styled.nav`
     margin: 0;
   }
 
+  .nav-list a {
+    color: ${({ theme }) => theme.colors.whiteColor};
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.hoverColor};
+      text-decoration: none;
+    }
+  }
+
   .account-menu {
     position: relative;
     cursor: pointer;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.textSize.medium};
+    transition: all 0.3s ease;
   }
 
   .dropdown {
-    display: ${({ isDropdownOpen }) =>
-      isDropdownOpen ? "block" : "none"}; /* Fixed here */
+    display: ${({ isDropdownOpen }) => (isDropdownOpen ? "block" : "none")};
     position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    top: 3.4rem;
+    right: -3rem;
+    background-color: ${({ theme }) => theme.colors.whiteColor};
+    box-shadow: ${({ theme }) => theme.boxShadow.medium};
     border-radius: 4px;
     min-width: 150px;
-    z-index: 1000;
+    z-index: ${({ theme }) => theme.zIndex.dropdown};
   }
 
   .dropdown-item {
     padding: 10px;
-    border-bottom: 1px solid lightgray;
+    background-color: ${({ theme }) => theme.colors.backgroundColor};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
     text-align: center;
     cursor: pointer;
-    color: black;
+    color: ${({ theme }) => theme.colors.textColor};
+    transition: all 0.3s ease;
 
     &:hover {
-      background-color: #f0f0f0;
+      background-color: ${({ theme }) => theme.colors.hoverColor};
+      color: ${({ theme }) => theme.colors.whiteColor};
+    }
+  }
+
+  .dropdown a {
+    color: ${({ theme }) => theme.colors.textColor};
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.whiteColor};
+      text-decoration: none;
     }
   }
 
@@ -51,9 +73,8 @@ const NavWrapper = styled.nav`
   }
 
   li {
-    color: white;
     &:hover {
-      color: red;
+      color: ${({ theme }) => theme.colors.hoverColor};
     }
   }
 `;
@@ -70,15 +91,15 @@ const Nav = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
-    toast.success("You have successfully logged out!"); // Corrected message
-    setIsDropdownOpen(false); // Close dropdown
+    toast.success("You have successfully logged out!");
+    setIsDropdownOpen(false);
     window.location.reload();
-    navigate("/"); // Redirect to home after logout
+    navigate("/");
   };
 
   const handleClickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-      setIsDropdownOpen(false); // Close dropdown when clicking outside
+      setIsDropdownOpen(false);
     }
   };
 
@@ -90,40 +111,41 @@ const Nav = () => {
   }, []);
 
   const isAuthenticated = !!localStorage.getItem("authToken");
+
   return (
     <NavWrapper isDropdownOpen={isDropdownOpen}>
       <ul>
-        <li>
+        <li className="nav-list">
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li className="nav-list">
           <Link to="/contests">Contests</Link>
         </li>
-        <li>
+        <li className="nav-list">
           <Link to="/about">About</Link>
         </li>
-        <li>
+        <li className="nav-list">
           <Link to="/leaderboard">LeaderBoard</Link>
         </li>
-        <li className="account-menu" onClick={handleToggle}>
+        <li className="account-menu nav-list" onClick={handleToggle}>
           Account
-          <div className="dropdown" ref={dropdownRef}>
-            {isAuthenticated ? (
-              <>
-                <div className="dropdown-item">
-                  <Link to="/contest/profile">Profile</Link>
-                </div>
-                <div className="dropdown-item" onClick={handleLogout}>
-                  Logout
-                </div>
-              </>
-            ) : (
-              <div className="dropdown-item">
-                <Link to="/contest/login">Login</Link>
-              </div>
-            )}
-          </div>
         </li>
+        <div className="dropdown" ref={dropdownRef}>
+          {isAuthenticated ? (
+            <>
+              <div className="dropdown-item">
+                <Link to="/contest/profile">Profile</Link>
+              </div>
+              <div className="dropdown-item" onClick={handleLogout}>
+                Logout
+              </div>
+            </>
+          ) : (
+            <div className="dropdown-item">
+              <Link to="/contest/login">Login</Link>
+            </div>
+          )}
+        </div>
       </ul>
     </NavWrapper>
   );

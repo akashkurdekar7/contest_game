@@ -126,20 +126,33 @@ const Home = () => {
   );
 };
 const Container = styled.div`
+  padding: 0 2rem;
   display: flex;
   gap: 2rem;
   justify-content: center;
   align-items: center;
+  .text-center {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    justify-content: space-between;
+  }
 `;
+
 const Heading = styled.h1`
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: ${({ theme }) => theme.textSize.xlarge};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   margin-bottom: 1rem;
+  font-family: ${({ theme }) => theme.fonts.secondaryFont};
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 const Description = styled.p`
-  font-size: 1.25rem;
+  font-size: ${({ theme }) => theme.textSize.medium};
   margin-bottom: 2rem;
+  color: ${({ theme }) => theme.colors.textColor};
 `;
 
 const ImageWrapper = styled.div`
@@ -147,64 +160,75 @@ const ImageWrapper = styled.div`
 `;
 
 const LeaderboardWrapper = styled.div`
-  margin-top: 2rem;
   padding: 1.5rem;
-  background-color: #f0f0f0;
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.boxShadow.medium};
 
   h2 {
     text-transform: uppercase;
+    font-family: ${({ theme }) => theme.fonts.secondaryFont};
+    color: ${({ theme }) => theme.colors.primaryColor};
   }
+
   table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: ${({ theme }) => theme.boxShadow.medium};
     border-radius: 8px;
     overflow: hidden;
   }
+
   thead {
-    background-color: #4caf50;
+    background-color: ${({ theme }) => theme.colors.accentColor1};
     color: white;
   }
+
   th,
   td {
     padding: 12px 15px;
     text-align: center;
+    color: ${({ theme }) => theme.colors.textColor};
   }
+
   tbody tr {
     background-color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
   tbody tr:nth-child(even) {
     background-color: #f9f9f9;
   }
-  tbody tr:first-child() {
-    color: red;
+
+  tbody tr:first-child {
+    color: ${({ theme }) => theme.colors.accentColor2};
   }
 
   tbody tr:hover {
-    background-color: #e0f7fa;
+    background-color: ${({ theme }) => theme.colors.hoverColor};
   }
 
   th {
-    font-weight: bold;
-    font-size: 1.1rem;
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    font-size: ${({ theme }) => theme.textSize.medium};
   }
 
   td {
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.textSize.small};
   }
+
   .first {
     font-size: 1.8rem;
     color: gold;
   }
+
   .second {
     font-size: 1.4rem;
     color: silver;
   }
+
   .third {
     font-size: 1em;
     color: brown;
@@ -212,7 +236,7 @@ const LeaderboardWrapper = styled.div`
 
   @media (max-width: 600px) {
     table {
-      font-size: 0.9rem; /* Adjust font size for smaller screens */
+      font-size: 0.9rem;
     }
   }
 `;

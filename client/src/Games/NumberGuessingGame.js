@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../Components/Button";
 
 const NumberGuessingGame = ({ onGameComplete }) => {
   const [randomNumber, setRandomNumber] = useState(generateRandomNumber());
@@ -38,7 +39,7 @@ const NumberGuessingGame = ({ onGameComplete }) => {
         min="1"
         max="100"
       />
-      <button onClick={handleGuess}>Submit Guess</button>
+      <Button onClick={handleGuess}>Submit Guess</Button>
       {message && <p>{message}</p>}
       <p>Attempts: {attempts}</p>
     </div>

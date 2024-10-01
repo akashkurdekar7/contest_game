@@ -10,62 +10,51 @@ const GlobalStyles = createGlobalStyle`
 
   /* Set default font and background for the entire app */
   body {
-    font-family: 'Oswald', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    font-family: ${(props) => props.theme.fonts.primaryFont};
+    background-color: ${(props) => props.theme.colors.backgroundColor};
+    color: ${(props) => props.theme.colors.textColor};
     line-height: 1.6;
   }
 
-  /* Custom colors for your app (White and Red Theme) */
-  :root {
-    --primary: #ff0000; /* Bright Red */
-    --primary-dark: #cc0000; /* Darker Red */
-    --primary-light: #ffcccc; /* Light Red */
-    --primary-foreground: #ffffff; /* White */
-    --background-color: #ffffff; /* White */
-    --text-color: #333333; /* Dark Gray for text */
-  }
-
   /* Styling for buttons */
-  button {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
+  /* button {
+    background-color: ${(props) => props.theme.colors.accentColor1};
+    color: ${(props) => props.theme.colors.primaryColor};
     padding: 0.75rem 1.5rem;
-    border: 2px solid var(--primary-foreground);
+    border: 2px solid ${(props) => props.theme.colors.primaryColor};
     border-radius: 0.5rem;
-    font-size: 1rem;
+    font-size: ${(props) => props.theme.textSize.medium};
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 
     &:hover {
-      background-color: var(--primary-foreground);
-      color: var(--primary);
+      background-color: ${(props) => props.theme.colors.primaryColor};
+      color: ${(props) => props.theme.colors.accentColor1};
     }
-  }
+  } */
 
   /* General link styling */
   a {
-    color: var(--primary);
+    color: ${(props) => props.theme.colors.accentColor1};
     text-decoration: none;
     transition: color 0.3s ease;
 
     &:hover {
-      text-decoration: underline;
-      color: var(--primary-dark);
+      color: ${(props) => props.theme.colors.accentColor2};
     }
   }
 
   /* Typography styles */
   h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeight.bold};
     line-height: 1.2;
-    color: var(--primary);
+    color: ${(props) => props.theme.colors.accentColor1};
   }
 
   p {
     margin-bottom: 1rem;
-    color: var(--text-color);
+    color: ${(props) => props.theme.colors.textColor};
   }
 
   ul, li, ol {
@@ -74,27 +63,27 @@ const GlobalStyles = createGlobalStyle`
 
   /* Card component global styles */
   .card {
-    background-color: var(--primary-light);
+    background-color: ${(props) => props.theme.colors.accentColor2};
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: ${(props) => props.theme.boxShadow.subtle};
     padding: 20px;
   }
 
   .card-title {
-    font-size: 1.5rem;
+    font-size: ${(props) => props.theme.textSize.large};
     margin-bottom: 0.5rem;
-    color: var(--primary);
+    color: ${(props) => props.theme.colors.accentColor1};
   }
 
   .card-description {
-    font-size: 1rem;
-    color: var(--text-color);
+    font-size: ${(props) => props.theme.textSize.medium};
+    color: ${(props) => props.theme.colors.textColor};
   }
 
   /* Footer styles */
   footer {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
+    background-color: ${(props) => props.theme.colors.primaryColor};
+    color: ${(props) => props.theme.colors.backgroundColor};
     padding: 1rem;
     text-align: center;
   }

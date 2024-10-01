@@ -168,14 +168,14 @@ const Register = () => {
                 required
                 className="form-input"
               />
-              <button
+              <i
                 type="button"
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 onClick={() => setShowPassword(!showPassword)}
                 className="eye-button"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              </i>
             </div>
             <div className="form-group relative">
               <label htmlFor="confirmPassword" className="form-label">
@@ -190,13 +190,13 @@ const Register = () => {
                 required
                 className="form-input"
               />
-              <button
+              <i
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="eye-button"
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+              </i>
             </div>
             <Button type="submit" className="submit-button">
               Register
@@ -207,15 +207,14 @@ const Register = () => {
     </Layout>
   );
 };
-
 const Wrapper = styled.div`
   .form-container {
     max-width: 400px;
     margin: 0 auto;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.backgroundColor};
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: ${({ theme }) => theme.boxShadow.heavy};
   }
 
   .form-title {
@@ -231,48 +230,36 @@ const Wrapper = styled.div`
 
   .form-label {
     font-size: 14px;
-    color: gray;
+    color: ${({ theme }) => theme.colors.secondaryColor};
   }
 
   .form-input {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid ${({ theme }) => theme.colors.borderColor};
     border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .form-input:focus {
-    border-color: black;
-    outline: none;
+    box-shadow: ${({ theme }) => theme.colors.boxShadow};
   }
 
-  .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+  .form-input:focus {
+    border-color: ${({ theme }) => theme.colors.borderColor};
+    outline: none;
   }
 
   .eye-button {
     position: absolute;
-    right: 10px;
-    top: 38px;
+    right: 0.5rem;
+    top: 57%;
+    transform: translateX(-50%);
     background: transparent;
     border: none;
     cursor: pointer;
-  }
-
-  .submit-button {
-    background-color: black;
-    color: white;
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-
+    padding: 0;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
     &:hover {
-      background-color: gray;
+      opacity: 1;
     }
   }
 
@@ -280,5 +267,4 @@ const Wrapper = styled.div`
     position: relative;
   }
 `;
-
 export default Register;

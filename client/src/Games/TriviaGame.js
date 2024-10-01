@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "../Components/Button";
 
 const TriviaGame = ({ onGameComplete }) => {
   const [questions, setQuestions] = useState([]);
@@ -57,9 +58,9 @@ const TriviaGame = ({ onGameComplete }) => {
         <div>
           <p>{questions[currentQuestion].question}</p>
           {questions[currentQuestion].answers.map((answer, idx) => (
-            <button key={idx} onClick={() => handleAnswer(idx)}>
+            <Button key={idx} onClick={() => handleAnswer(idx)}>
               {answer}
-            </button>
+            </Button>
           ))}
         </div>
       ) : (

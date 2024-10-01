@@ -2,44 +2,30 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  background-color: var(--primary);
-  color: var(--primary-foreground);
+  background-color: ${({ theme }) => theme.colors.accentColor1};
+  color: ${({ theme }) => theme.colors.primaryColor};
   padding: 0.75rem 1.5rem;
   border: none;
+  width: 100%;
   border-radius: 0.5rem;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.textSize.medium};
+  font-family: ${({ theme }) => theme.fonts.primaryFont};
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: var(--primary-dark);
+    background-color: ${({ theme }) => theme.colors.accentColor2};
+    color: ${({ theme }) => theme.colors.whiteColor};
   }
-
-  ${({ variant }) =>
-    variant === "outline" &&
-    `
-      background-color: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-
-      &:hover {
-        background-color: var(--primary);
-        color: var(--primary-foreground);
-      }
-  `}
 `;
 
-const Button = ({ children, link, variant, ...props }) => {
+const Button = ({ children, link, ...props }) => {
   return link ? (
     <Link to={link}>
-      <StyledButton variant={variant} {...props}>
-        {children}
-      </StyledButton>
+      <StyledButton {...props}>{children}</StyledButton>
     </Link>
   ) : (
-    <StyledButton variant={variant} {...props}>
-      {children}
-    </StyledButton>
+    <StyledButton {...props}>{children}</StyledButton>
   );
 };
 

@@ -4,9 +4,11 @@ import Footer from "./Footer";
 
 const Main = styled.main`
   flex-grow: 1;
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LayoutWrapper = styled.div`

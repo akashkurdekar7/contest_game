@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "./Button";
 
 const GameCard = ({ game, completed, onGameStart }) => {
   const startGame = () => {
@@ -12,9 +13,9 @@ const GameCard = ({ game, completed, onGameStart }) => {
     <Card completed={completed}>
       <h3>{game.title}</h3>
       <p>{completed ? "Completed" : "Not Completed"}</p>
-      <button onClick={startGame} disabled={completed}>
+      <Button onClick={startGame} disabled={completed}>
         {completed ? "Game Completed" : "Start Game"}
-      </button>
+      </Button>
     </Card>
   );
 };
